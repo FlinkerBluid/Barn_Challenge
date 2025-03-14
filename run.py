@@ -30,6 +30,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = 'test BARN navigation challenge')
     parser.add_argument('--world_idx', type=int, default=0)
     parser.add_argument('--gui', action="store_true")
+    
+    #new code from mary
+    parser.add_argument('--rviz', action="store_true")
+    
     parser.add_argument('--out', type=str, default="out.txt")
     args = parser.parse_args()
     
@@ -88,7 +92,14 @@ if __name__ == "__main__":
         curr_coor = (pos.x, pos.y)
         collided = gazebo_sim.get_hard_collision()
         time.sleep(1)
-
+        
+        
+    if args.rviz:
+    	launch_file = join(base_path, '..', 'jackal_helper/launch/rviz_launch.launch')
+    	rviz_process = subprocess.Popen([
+        	'roslaunch',
+        	launch_file,
+    	])
 	
     ##########################################################################################
     ## 1. Launch your navigation stack
@@ -193,5 +204,8 @@ if __name__ == "__main__":
     
     gazebo_process.terminate()
     gazebo_process.wait()
+    if rviz_process: 
+    	rviz_process.terminate()
+    	rviz_process.wait()
     nav_stack_process.terminate()
     nav_stack_process.wait()
