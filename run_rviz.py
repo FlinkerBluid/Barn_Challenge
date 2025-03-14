@@ -151,7 +151,8 @@ if __name__ == "__main__":
     start_time_cpu = time.time()
     collided = False
     
-    while compute_distance(goal_coor, curr_coor) > 1 and not collided and curr_time - start_time < 100:
+    while compute_distance(goal_coor, curr_coor) > 1 and not collided and curr_time - start_time < 100:  	
+        #print('DEBUG, goal coor:',goal_coor,'\ngoal distance:',compute_distance(goal_coor, curr_coor) )
         curr_time = rospy.get_time()
         pos = gazebo_sim.get_model_state().pose.position
         curr_coor = (pos.x, pos.y)
@@ -201,5 +202,7 @@ if __name__ == "__main__":
     
     gazebo_process.terminate()
     gazebo_process.wait()
+    rviz_process.terminate()
+    rviz_process.wait()
     nav_stack_process.terminate()
     nav_stack_process.wait()
