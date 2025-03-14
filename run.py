@@ -89,19 +89,18 @@ if __name__ == "__main__":
         collided = gazebo_sim.get_hard_collision()
         time.sleep(1)
 
-
-
-
+	
     ##########################################################################################
     ## 1. Launch your navigation stack
     ## (Customize this block to add your own navigation stack)
     ##########################################################################################
     
-    launch_file = join(base_path, '..', 'jackal_helper/launch/move_base_DWA.launch')
+    launch_file = join(base_path, '..', 'jackal_helper/launch/move_base_custom1.launch')
     nav_stack_process = subprocess.Popen([
         'roslaunch',
         launch_file,
     ])
+    
     
     # Make sure your navigation stack recives the correct goal position defined in GOAL_POSITION
     import actionlib
@@ -114,6 +113,7 @@ if __name__ == "__main__":
     mb_goal.target_pose.pose.position.y = GOAL_POSITION[1]
     mb_goal.target_pose.pose.position.z = 0
     mb_goal.target_pose.pose.orientation = Quaternion(0, 0, 0, 1)
+    
 
     nav_as.wait_for_server()
     nav_as.send_goal(mb_goal)
@@ -143,6 +143,7 @@ if __name__ == "__main__":
     collided = False
     
     while compute_distance(goal_coor, curr_coor) > 1 and not collided and curr_time - start_time < 100:
+ 
         curr_time = rospy.get_time()
         pos = gazebo_sim.get_model_state().pose.position
         curr_coor = (pos.x, pos.y)

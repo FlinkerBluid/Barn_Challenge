@@ -104,7 +104,7 @@ if __name__ == "__main__":
     ## (Customize this block to add your own navigation stack)
     ##########################################################################################
     
-    launch_file = join(base_path, '..', 'jackal_helper/launch/move_base_eband.launch')
+    launch_file = join(base_path, '..', 'jackal_helper/launch/move_base_custom1.launch')
     nav_stack_process = subprocess.Popen([
         'roslaunch',
         launch_file,
@@ -152,7 +152,7 @@ if __name__ == "__main__":
     collided = False
     
     while compute_distance(goal_coor, curr_coor) > 1 and not collided and curr_time - start_time < 100:  	
-        #print('DEBUG, goal coor:',goal_coor,'\ngoal distance:',compute_distance(goal_coor, curr_coor) )
+        print('DEBUG, goal coor:',goal_coor,'\ngoal distance:',compute_distance(goal_coor, curr_coor) )
         curr_time = rospy.get_time()
         pos = gazebo_sim.get_model_state().pose.position
         curr_coor = (pos.x, pos.y)
