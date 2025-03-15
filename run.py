@@ -120,12 +120,12 @@ if __name__ == "__main__":
     nav_as = actionlib.SimpleActionClient('/move_base', MoveBaseAction)
     mb_goal = MoveBaseGoal()
     mb_goal.target_pose.header.frame_id = 'odom'
-    mb_goal.target_pose.pose.position.x = GOAL_POSITION[0]
+    mb_goal.target_pose.pose.position.x = GOAL_POSITION[0]-.75
     mb_goal.target_pose.pose.position.y = GOAL_POSITION[1]
     mb_goal.target_pose.pose.position.z = 0
     mb_goal.target_pose.pose.orientation = Quaternion(0, 0, 0, 1)
     
-
+	
     nav_as.wait_for_server()
     nav_as.send_goal(mb_goal)
 
