@@ -93,7 +93,7 @@ if __name__ == "__main__":
         collided = gazebo_sim.get_hard_collision()
         time.sleep(1)
         
-        
+    rviz_process=None  
     if args.rviz:
     	launch_file = join(base_path, '..', 'jackal_helper/launch/rviz_launch.launch')
     	rviz_process = subprocess.Popen([
